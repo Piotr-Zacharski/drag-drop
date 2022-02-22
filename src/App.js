@@ -13,7 +13,11 @@ const mainColumns =
     [uuidv4()]: {
         name: 'Todo',
         items: mainTasks
-    }
+    },
+    [uuidv4()]: {
+        name: 'In Progress',
+        items: []
+    },
 };
 
 const onDragEnd = (result, columns, setColumns) => {
