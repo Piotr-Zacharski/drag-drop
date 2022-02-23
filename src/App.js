@@ -2,15 +2,15 @@ import './App.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Form from "./components/Form";
 
 const mainTasks = [
 {id: uuidv4(), content: 'Login page'},
 {id: uuidv4(), content: 'Auth'},
-{id: uuidv4(), content: 'Create user'},
 {id: uuidv4(), content: 'Create form'},
-{id: uuidv4(), content: 'Handle tokens'},
-{id: uuidv4(), content: 'Database'},
-{id: uuidv4(), content: 'Styling'}
+{id: uuidv4(), content: 'Handle tokens'}
 ];
 
 const mainColumns =
@@ -70,11 +70,20 @@ const onDragEnd = (result, columns, setColumns) => {
     
 };
 
+const handleAdd = (e) => {
+    e.preventDefault();
+
+};
+
 
 
 function App() {
     const [columns, setColumns] = useState(mainColumns);
   return (
+      <>
+      <div style={{margin: 0, padding: 0}}>
+          <Header />
+      </div>
     <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
       <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
           {Object.entries(columns).map(([id, column]) => {
@@ -89,7 +98,7 @@ function App() {
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                                 style={{
-                                background: snapshot.isDraggingOver ? 'lightgreen' : 'lightgrey',
+                                background: snapshot.isDraggingOver ? '#7f8c8d' : '#bdc3c7',
                                 padding: 4,
                                 width: 250,
                                 minHeight: 500,
@@ -112,8 +121,9 @@ function App() {
                                                         padding: 16,
                                                         margin: '0 0 8px 0',
                                                         minHeight: '50px',
-                                                        backgroundColor: snapshot.isDragging ? 'lightpink' : 'lightblue',
-                                                        color: 'black',
+                                                        backgroundColor: snapshot.isDragging ? '#8e44ad' : '#3498db',
+                                                        color: '#ecf0f1',
+                                                        fontWeight: 'bold',
                                                         borderRadius: 7,
                                                         ...provided.draggableProps.style
                                                     }}
@@ -136,6 +146,14 @@ function App() {
           })}
       </DragDropContext>
     </div>
+          <div>
+              <Form handleClick={handleAdd} />
+          </div>
+          <div>
+              <Footer />
+          </div>
+
+      </>
   );
 }
 
