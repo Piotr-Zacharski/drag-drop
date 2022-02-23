@@ -4,8 +4,13 @@ import {useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const mainTasks = [
-{id: uuidv4(), content: 'Initial task'},
-{id: uuidv4(), content: 'Second task'}
+{id: uuidv4(), content: 'Login page'},
+{id: uuidv4(), content: 'Auth'},
+{id: uuidv4(), content: 'Create user'},
+{id: uuidv4(), content: 'Create form'},
+{id: uuidv4(), content: 'Handle tokens'},
+{id: uuidv4(), content: 'Database'},
+{id: uuidv4(), content: 'Styling'}
 ];
 
 const mainColumns =
@@ -68,9 +73,7 @@ const onDragEnd = (result, columns, setColumns) => {
 
 
 function App() {
-
     const [columns, setColumns] = useState(mainColumns);
-
   return (
     <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
       <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
@@ -110,7 +113,7 @@ function App() {
                                                         margin: '0 0 8px 0',
                                                         minHeight: '50px',
                                                         backgroundColor: snapshot.isDragging ? 'lightpink' : 'lightblue',
-                                                        color: 'white',
+                                                        color: 'black',
                                                         borderRadius: 7,
                                                         ...provided.draggableProps.style
                                                     }}
