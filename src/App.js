@@ -18,11 +18,38 @@ const mainColumns =
         name: 'In Progress',
         items: []
     },
+    [uuidv4()]: {
+        name: 'Testing',
+        items: []
+    },
+    [uuidv4()]: {
+        name: 'Done',
+        items: []
+    },
 };
 
 const onDragEnd = (result, columns, setColumns) => {
     if(!result.destination) return;
     const {source, destination} = result;
+    if(source.droppableId !== destination.droppableId) {
+        const sourceColumn = columns[source.droppableId];
+        const destinationColumn = columns[destination.droppableId];
+        const sourceItems = [...sourceColumn.items];
+        const destinationItems = [...destinationColumn.items];
+        const [removed] = sourceItems.splice(source.index, 1);
+        destinationItems.splice(destination.index, 0, removed);
+        setColumns({
+            ...columns,
+            [source.droppableId]: {
+                ...sourceColumn,
+                items: sourceItems
+            },
+            [destination.droppableId]: {
+                ...destinationColumn,
+                items: destinationItems
+            }
+        })
+    } else {
     const column = columns[source.droppableId];
     const copiedTasks = [...column.items];
     const [removed] = copiedTasks.splice(source.index, 1);
@@ -34,6 +61,8 @@ const onDragEnd = (result, columns, setColumns) => {
             items: copiedTasks
         }
     });
+    }
+    
 };
 
 
@@ -47,6 +76,9 @@ function App() {
       <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
           {Object.entries(columns).map(([id, column]) => {
               return(
+                  <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                      <h3>{column.name}</h3>
+                      <div style={{margin: 8}}>
                   <Droppable droppableId={id} key={id}>
                       {(provided, snapshot) => {
                         return (
@@ -57,7 +89,8 @@ function App() {
                                 background: snapshot.isDraggingOver ? 'lightgreen' : 'lightgrey',
                                 padding: 4,
                                 width: 250,
-                                minHeight: 500
+                                minHeight: 500,
+                                borderRadius: 7
                             }}>
                                 {column.items.map((item, index) =>{
                                     return(
@@ -78,6 +111,7 @@ function App() {
                                                         minHeight: '50px',
                                                         backgroundColor: snapshot.isDragging ? 'lightpink' : 'lightblue',
                                                         color: 'white',
+                                                        borderRadius: 7,
                                                         ...provided.draggableProps.style
                                                     }}
                                                     >
@@ -93,6 +127,8 @@ function App() {
                         );
                       }}
                   </Droppable>
+                  </div>
+                  </div>
                   );
           })}
       </DragDropContext>
