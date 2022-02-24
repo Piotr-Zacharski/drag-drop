@@ -5,12 +5,14 @@ import { v4 as uuidv4 } from 'uuid';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Form from "./components/Form";
+import {Paper} from "@mui/material";
+
 
 const mainTasks = [
-{id: uuidv4(), content: 'Login page'},
-{id: uuidv4(), content: 'Auth'},
-{id: uuidv4(), content: 'Create form'},
-{id: uuidv4(), content: 'Handle tokens'}
+    {id: uuidv4(), content: 'Login page'},
+    {id: uuidv4(), content: 'Auth'},
+    {id: uuidv4(), content: 'Create form'},
+    {id: uuidv4(), content: 'Handle tokens'}
 ];
 
 const mainColumns =
@@ -70,9 +72,9 @@ const onDragEnd = (result, columns, setColumns) => {
     
 };
 
-const handleAdd = (e) => {
+const handleAdd = (e, setTasks) => {
     e.preventDefault();
-
+    setTasks()
 };
 
 
@@ -90,7 +92,7 @@ function App() {
               return(
                   <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                       <h3>{column.name}</h3>
-                      <div style={{margin: 8}}>
+                      <Paper style={{margin: 8, borderRadius: 8}} elevation={7}>
                   <Droppable droppableId={id} key={id}>
                       {(provided, snapshot) => {
                         return (
@@ -140,7 +142,7 @@ function App() {
                         );
                       }}
                   </Droppable>
-                  </div>
+                  </Paper>
                   </div>
                   );
           })}

@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, TextField} from "@mui/material";
 
-const Form = ({handleAdd, mainTasks}) => {
-    const [add, setAdd] = useState(mainTasks)
+
+const Form = ({handleAdd}) => {
 
     return (
         <>
@@ -19,9 +19,7 @@ const Form = ({handleAdd, mainTasks}) => {
                 id="outlined-basic"
                 placeholder="Enter task"
                 variant="outlined"
-                name={add}
-                value={add}
-                onChange={(e) => setAdd(e.target.value)}
+                onChange={(e) => handleAdd(e.target.value)}
             />
         </div>
             <div style={{
@@ -36,7 +34,7 @@ const Form = ({handleAdd, mainTasks}) => {
             >
             <Button
                 variant="outlined"
-                onClick={(e) => handleAdd(setAdd(e.target.value))}
+                onClick={() => handleAdd()}
             >
                 Add Task
             </Button>
