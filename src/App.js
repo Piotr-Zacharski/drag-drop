@@ -72,14 +72,8 @@ const onDragEnd = (result, columns, setColumns) => {
     
 };
 
-const handleAdd = (e, setTasks) => {
-    e.preventDefault();
-    setTasks()
-};
 
-
-
-function App() {
+function App({ handleClick }) {
     const [columns, setColumns] = useState(mainColumns);
   return (
       <>
@@ -149,7 +143,7 @@ function App() {
       </DragDropContext>
     </div>
           <div>
-              <Form handleClick={handleAdd} />
+              <Form onSubmit={handleClick} />
           </div>
           <div>
               <Footer />

@@ -1,8 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, TextField} from "@mui/material";
 
 
-const Form = ({handleAdd}) => {
+const Form = () => {
+
+    const [tasks, setTasks] = useState('');
+
+    const handleClick = () => {
+
+        const task = { tasks };
+
+        fetch('http://localhost:8000/tasks', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(task)
+        }).then(() => {
+            console.log("New task");
+        })
+    }
 
     return (
         <>
@@ -19,7 +34,8 @@ const Form = ({handleAdd}) => {
                 id="outlined-basic"
                 placeholder="Enter task"
                 variant="outlined"
-                onChange={(e) => handleAdd(e.target.value)}
+                value={tasks}
+                onChange={(e) => setTasks(e.target.value)}
             />
         </div>
             <div style={{
@@ -34,7 +50,7 @@ const Form = ({handleAdd}) => {
             >
             <Button
                 variant="outlined"
-                onClick={() => handleAdd()}
+                onClick={() => handleClick()}
             >
                 Add Task
             </Button>
